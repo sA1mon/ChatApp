@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Dispatcher;
+using System.Text.RegularExpressions;
 using ChatApp;
 using Host.ChatService;
 
@@ -38,37 +41,53 @@ namespace Host
                 host.Open();
                 
                 WriteLineWithTime("Host was started");
-                WriteLineWithTime("Press any key to log in as Admin");
-                Console.ReadKey();
-                WriteLineWithTime("You are logged in");
+                WriteLineWithTime("Admin logged in");
                 var client = new ChatClient(new InstanceContext(server));
                 var user = client.Add("Admin");
 
                 while (true)
                 {
                     var msg = Console.ReadLine();
+                    var regex = new Regex(@"^(?<command>!\w+)(\s(?<arg>(\-\-)?\w+))?");
 
-                    switch (msg.ToLower())
+                    if (regex.IsMatch(msg))
                     {
-                        case "!exit":
+                        var command = regex.Replace(msg, @"${command}");
+                        switch (command)
                         {
-                            client.Remove(user);
-                            WriteLineWithTime("Wait... saving results");
-                            client.Shutdown(true);
-                            return;
+                            case "!exit":
+                            {
+                                var args = regex.Replace(msg, "${arg}");
+                                client.Remove(user);
+                                WriteLineWithTime("Wait... saving results");
+                                client.Shutdown(args != "--force");
+
+                                return;
+                            }
+                            case "!ban":
+                            {
+                                var suspect = regex.Replace(msg, "${arg}");
+                                try
+                                {
+                                    client.Remove(new User(suspect));
+                                    WriteLineWithTime("User banned successfully");
+                                }
+                                catch (FaultException)
+                                {
+                                    WriteLineWithTime("User not found");
+                                }
+                                break;
+                            }
+                            default:
+                            {
+                                WriteLineWithTime("Wrong command");
+                                break;
+                            }
                         }
-                        case "!exit --force":
-                        {
-                            client.Remove(user);
-                            WriteLineWithTime("Wait... stop the server");
-                            client.Shutdown(false);
-                            return;
-                        }
-                        default:
-                        {
-                            client.SendMessage(msg, user);
-                            break;
-                        }
+                    }
+                    else
+                    {
+                        WriteLineWithTime("Wrong command");
                     }
                 }
             }

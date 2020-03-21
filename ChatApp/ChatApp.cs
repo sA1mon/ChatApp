@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceModel;
+using System.ServiceModel.Dispatcher;
 
 namespace ChatApp
 {
@@ -37,11 +38,11 @@ namespace ChatApp
 
 			var user = Users.FirstOrDefault(x => x.Name == name);
 			if (user != null)
-				throw new FaultException("User name is busy");
+				throw new FaultException("User name is busy.");
 
 			var id = FreeIDs.First();
 			FreeIDs.Remove(id);
-			SendMessage($"{name} connected.", new User());
+			if (name != "Admin") SendMessage($"{name} connected.", new User());
 
 			user = new User(id, name)
 			{
@@ -55,14 +56,14 @@ namespace ChatApp
 
 		public void Remove(User user)
 		{
-			if (user == null) throw new ArgumentException();
+			if (user == null) throw new FaultException("User unknown");
 
-			user = Users.FirstOrDefault(x => x.Id == user.Id && x.Name == user.Name);
-			if (user == null) return;
+			user = Users.FirstOrDefault(x => x.Name == user.Name);
+			if (user == null) throw new FaultException("User unknown");
 
 			FreeIDs.Add(user.Id);
 			Users.Remove(user);
-			SendMessage($"{user.Name} disconnected.", new User());
+			if (user.Id != 0) SendMessage($"{user.Name} disconnected.", new User());
 		}
 
         private void AddMessageInQueue(string message)
@@ -77,8 +78,14 @@ namespace ChatApp
 
 		public void SendMessage(string msg, User sender)
 		{
-			if (msg == string.Empty) throw new ArgumentException();
-			if (sender == null) return;
+			if (msg == string.Empty) throw new FaultException("Empty message");
+            if (sender == null) return;
+
+			if (sender.Id != 0 || sender.Name != "Server")
+            {
+                sender = Users.FirstOrDefault(x => x.Name == sender.Name && x.Id == sender.Id);
+                if (sender == null) throw new FaultException("Sender not found");
+            }
 
 			var message = $"[{DateTime.Now.ToLongTimeString()}] {sender.Name}: {msg}\n";
 			AddMessageInQueue(message);

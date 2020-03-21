@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatApp;
 using Client.ChatService;
@@ -25,22 +26,35 @@ namespace Client
 
         public void Connect(string name)
         {
-            Thread.Sleep(100);
-            _client = new ChatClient(new InstanceContext(this));
-            _me = _client.Add(name);
-            Text += $": {name}";
+            try
+            {
+                Thread.Sleep(100);
+                _client = new ChatClient(new InstanceContext(this));
+                _me = _client.Add(name);
+                Text += $": {name}";
+
+            }
+            catch (FaultException e)
+            {
+                if (e.Reason.ToString() == "User name is busy.")
+                {
+                    MessageBox.Show("Имя занято!");
+                }
+                else
+                {
+                    throw;
+                }
+            }
             //UserConnected?.Invoke(this, EventArgs.Empty);
         }
 
-        public void GetMessage(string message)
+        public async void GetMessage(string message)
         {
-            chatBox.Items.Add(message);
+            await Task.Factory.StartNew(() => chatBox.Items.Add(message));
         }
 
         public void GetHistory(Queue<string> messages)
         {
-            chatBox.Items.Clear();
-
             while (messages.Count > 0)
             {
                 chatBox.Items.Add(messages.Dequeue());
@@ -55,11 +69,18 @@ namespace Client
 
         private void Chat_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_client != null)
+            try
             {
-                _client.Remove(_me);
-                //UserDisconnected?.Invoke(this, EventArgs.Empty);
-                _client.Close();
+                if (_client != null)
+                {
+                    _client.Remove(_me);
+                    //UserDisconnected?.Invoke(this, EventArgs.Empty);
+                    _client.Close();
+                }
+            }
+            catch
+            {
+                //do nothing
             }
         }
 

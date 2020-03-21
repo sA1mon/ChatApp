@@ -7,7 +7,6 @@ namespace ChatApp
     [ServiceContract(CallbackContract = typeof(IMessageCallback))]
     public interface IChat
     {
-
         [OperationContract]
         User Add(string name);
 
@@ -31,7 +30,6 @@ namespace ChatApp
         void GetHistory(Queue<string> messages);
     }
 
-// Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
     public class User
     {
@@ -47,6 +45,12 @@ namespace ChatApp
             Id = 0;
             Name = "Server";
         }
+
+        public User(string name) : this()
+        {
+            Name = name;
+        }
+
         public User(int id, string name)
         {
             Id = id;
