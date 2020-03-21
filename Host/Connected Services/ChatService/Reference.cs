@@ -32,6 +32,12 @@ namespace Host.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
         System.Threading.Tasks.Task SendMessageAsync(string msg, ChatApp.User sender);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
+        void Shutdown(bool saveHistory);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
+        System.Threading.Tasks.Task ShutdownAsync(bool saveHistory);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -39,6 +45,9 @@ namespace Host.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetMessage")]
         void GetMessage(string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetHistory")]
+        void GetHistory(System.Collections.Generic.Queue<string> msgs);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -91,6 +100,14 @@ namespace Host.ChatService {
         
         public System.Threading.Tasks.Task SendMessageAsync(string msg, ChatApp.User sender) {
             return base.Channel.SendMessageAsync(msg, sender);
+        }
+        
+        public void Shutdown(bool saveHistory) {
+            base.Channel.Shutdown(saveHistory);
+        }
+        
+        public System.Threading.Tasks.Task ShutdownAsync(bool saveHistory) {
+            return base.Channel.ShutdownAsync(saveHistory);
         }
     }
 }

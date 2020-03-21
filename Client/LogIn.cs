@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Client
 {
@@ -56,19 +57,19 @@ namespace Client
         private TextBox nameBox;
         private Button connectButton;
         private Label nameLabel;
-        private Chat parrent;
+        private readonly Chat _parrent;
 
 
         public LogIn(Chat sender)
         {
             InitializeComponent();
-            parrent = sender;
+            _parrent = sender;
         }
 
         private void connectButton_Click(object sender, System.EventArgs e)
         {
-            parrent.Connect(nameBox.Text);
-            this.Close();
+            Task.Factory.StartNew(() => _parrent.Connect(nameBox.Text));
+            Close();
         }
     }
 }

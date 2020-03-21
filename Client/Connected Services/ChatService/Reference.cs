@@ -9,92 +9,35 @@
 //------------------------------------------------------------------------------
 
 namespace Client.ChatService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/ChatApp")]
-    [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ID {
-            get {
-                return this.IDField;
-            }
-            set {
-                if ((this.IDField.Equals(value) != true)) {
-                    this.IDField = value;
-                    this.RaisePropertyChanged("ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.IChat", CallbackContract=typeof(Client.ChatService.IChatCallback))]
     public interface IChat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        Client.ChatService.User Add(string name);
+        ChatApp.User Add(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name);
+        System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
-        void Remove(Client.ChatService.User user);
+        void Remove(ChatApp.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
-        System.Threading.Tasks.Task RemoveAsync(Client.ChatService.User user);
+        System.Threading.Tasks.Task RemoveAsync(ChatApp.User user);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
-        void SendMessage(string msg, Client.ChatService.User sender);
+        void SendMessage(string msg, ChatApp.User sender);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
-        System.Threading.Tasks.Task SendMessageAsync(string msg, Client.ChatService.User sender);
+        System.Threading.Tasks.Task SendMessageAsync(string msg, ChatApp.User sender);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
+        void Shutdown(bool saveHistory);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
+        System.Threading.Tasks.Task ShutdownAsync(bool saveHistory);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -102,6 +45,9 @@ namespace Client.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetMessage")]
         void GetMessage(string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetHistory")]
+        void GetHistory(System.Collections.Generic.Queue<string> messages);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -132,28 +78,36 @@ namespace Client.ChatService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public Client.ChatService.User Add(string name) {
+        public ChatApp.User Add(string name) {
             return base.Channel.Add(name);
         }
         
-        public System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name) {
+        public System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name) {
             return base.Channel.AddAsync(name);
         }
         
-        public void Remove(Client.ChatService.User user) {
+        public void Remove(ChatApp.User user) {
             base.Channel.Remove(user);
         }
         
-        public System.Threading.Tasks.Task RemoveAsync(Client.ChatService.User user) {
+        public System.Threading.Tasks.Task RemoveAsync(ChatApp.User user) {
             return base.Channel.RemoveAsync(user);
         }
         
-        public void SendMessage(string msg, Client.ChatService.User sender) {
+        public void SendMessage(string msg, ChatApp.User sender) {
             base.Channel.SendMessage(msg, sender);
         }
         
-        public System.Threading.Tasks.Task SendMessageAsync(string msg, Client.ChatService.User sender) {
+        public System.Threading.Tasks.Task SendMessageAsync(string msg, ChatApp.User sender) {
             return base.Channel.SendMessageAsync(msg, sender);
+        }
+        
+        public void Shutdown(bool saveHistory) {
+            base.Channel.Shutdown(saveHistory);
+        }
+        
+        public System.Threading.Tasks.Task ShutdownAsync(bool saveHistory) {
+            return base.Channel.ShutdownAsync(saveHistory);
         }
     }
 }

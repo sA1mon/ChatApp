@@ -34,6 +34,8 @@
       <xsd:import schemaLocation="http://localhost:8733/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8733/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8733/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ChatApp" />
+      <xsd:import schemaLocation="http://localhost:8733/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+      <xsd:import schemaLocation="http://localhost:8733/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IChat_Add_InputMessage">
@@ -51,8 +53,17 @@
   <wsdl:message name="IChat_SendMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessage" />
   </wsdl:message>
+  <wsdl:message name="IChat_Shutdown_InputMessage">
+    <wsdl:part name="parameters" element="tns:Shutdown" />
+  </wsdl:message>
+  <wsdl:message name="IChat_Shutdown_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShutdownResponse" />
+  </wsdl:message>
   <wsdl:message name="IChat_GetMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:GetMessage" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetHistory_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetHistory" />
   </wsdl:message>
   <wsdl:portType name="IChat">
     <wsdl:operation name="Add">
@@ -66,8 +77,15 @@
     <wsdl:operation name="SendMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/SendMessage" message="tns:IChat_SendMessage_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="Shutdown">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/Shutdown" message="tns:IChat_Shutdown_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/ShutdownResponse" message="tns:IChat_Shutdown_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetMessage" message="tns:IChat_GetMessage_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetHistory" message="tns:IChat_GetHistory_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IChat" type="tns:IChat">
@@ -97,8 +115,23 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="Shutdown">
+      <soap12:operation soapAction="http://tempuri.org/IChat/Shutdown" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMessage">
       <soap12:operation soapAction="http://tempuri.org/IChat/GetMessage" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <soap12:operation soapAction="http://tempuri.org/IChat/GetHistory" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

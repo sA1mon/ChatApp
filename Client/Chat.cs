@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
+using System.Threading;
 using System.Windows.Forms;
+using ChatApp;
 using Client.ChatService;
 
 namespace Client
 {
     public partial class Chat : Form, IChatCallback
     {
-        private ChatClient client;
+        private ChatClient _client;
         private User _me;
+
+        private event EventHandler UserConnected;
+        private event EventHandler UserDisconnected;
+
         public Chat()
         {
             InitializeComponent();
@@ -18,8 +25,11 @@ namespace Client
 
         public void Connect(string name)
         {
-            client = new ChatClient(new InstanceContext(this));
-            _me = client.Add(name);
+            Thread.Sleep(100);
+            _client = new ChatClient(new InstanceContext(this));
+            _me = _client.Add(name);
+            Text += $": {name}";
+            //UserConnected?.Invoke(this, EventArgs.Empty);
         }
 
         public void GetMessage(string message)
@@ -27,18 +37,29 @@ namespace Client
             chatBox.Items.Add(message);
         }
 
+        public void GetHistory(Queue<string> messages)
+        {
+            chatBox.Items.Clear();
+
+            while (messages.Count > 0)
+            {
+                chatBox.Items.Add(messages.Dequeue());
+            }
+        }
+
         private async void Send(object sender, EventArgs e)
         {
-            await client.SendMessageAsync(messageBox.Text, _me);
+            await _client.SendMessageAsync(messageBox.Text, _me);
             messageBox.Text = string.Empty;
         }
 
         private void Chat_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (client != null)
+            if (_client != null)
             {
-                client.Remove(_me);
-                client = null;
+                _client.Remove(_me);
+                //UserDisconnected?.Invoke(this, EventArgs.Empty);
+                _client = null;
             }
         }
     }

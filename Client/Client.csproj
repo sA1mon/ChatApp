@@ -80,9 +80,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Connected Services\ChatService\Chat.wsdl" />
-    <None Include="Connected Services\ChatService\Client.ChatService.User.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\ChatService\item.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -92,6 +89,13 @@
     <None Include="Connected Services\ChatService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ChatService\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ChatService\item31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\ChatApp.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

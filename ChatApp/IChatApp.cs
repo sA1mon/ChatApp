@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 
 namespace ChatApp
@@ -15,6 +16,9 @@ namespace ChatApp
 
         [OperationContract(IsOneWay = true)]
         void SendMessage(string msg, User sender);
+
+        [OperationContract]
+        void Shutdown(bool saveHistory);
     }
 
     [ServiceContract]
@@ -22,6 +26,9 @@ namespace ChatApp
     {
         [OperationContract(IsOneWay = true)]
         void GetMessage(string message);
+
+        [OperationContract(IsOneWay = true)]
+        void GetHistory(Queue<string> messages);
     }
 
 // Use a data contract as illustrated in the sample below to add composite types to service operations.
