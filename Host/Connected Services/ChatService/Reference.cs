@@ -47,7 +47,7 @@ namespace Host.ChatService {
         void GetMessage(string message);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetHistory")]
-        void GetHistory(System.Collections.Generic.Queue<string> msgs);
+        void GetHistory(System.Collections.Generic.Queue<string> messages);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

@@ -59,7 +59,7 @@ namespace Client
             {
                 _client.Remove(_me);
                 //UserDisconnected?.Invoke(this, EventArgs.Empty);
-                _client = null;
+                _client.Close();
             }
         }
     }

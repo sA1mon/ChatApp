@@ -27,8 +27,12 @@ namespace Host
             {
                 var server = new Callback();
 
+                host.AddServiceEndpoint(typeof(ChatApp.IChat), new NetTcpBinding {PortSharingEnabled = true},
+                    "net.tcp://192.168.0.104:8731/");
                 host.Open();
+                
                 Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Host was started");
+                //Console.ReadLine();
                 var client = new ChatClient(new InstanceContext(server));
                 var user = client.Add("Admin");
 
@@ -36,20 +40,30 @@ namespace Host
                 {
                     var msg = Console.ReadLine();
 
-                    if (msg == "!exit")
+                    switch (msg.ToLower())
                     {
-                        client.Remove(user);
-                        Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Wait... saving results");
-                        client.Shutdown(true);
-                        break;
+                        case "!exit":
+                        {
+                            client.Remove(user);
+                            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Wait... saving results");
+                            client.Shutdown(true);
+                            return;
+                        }
+                        case "!exit --force":
+                        {
+                            client.Remove(user);
+                            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Wait... saving results");
+                            client.Shutdown(false);
+                            return;
+                        }
+                        default:
+                        {
+                            client.SendMessage(msg, user);
+                            break;
+                        }
                     }
-
-                    client.SendMessage(msg, user);
                 }
             }
-
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
         }
     }
 }
