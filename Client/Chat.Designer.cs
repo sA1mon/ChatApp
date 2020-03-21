@@ -48,6 +48,7 @@
             this.messageBox.Name = "messageBox";
             this.messageBox.Size = new System.Drawing.Size(574, 22);
             this.messageBox.TabIndex = 1;
+            this.messageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageBox_KeyDown);
             // 
             // sendB
             // 

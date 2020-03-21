@@ -18,6 +18,7 @@ namespace Client
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(245, 22);
             this.nameBox.TabIndex = 0;
+            this.nameBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameBox_KeyDown);
             // 
             // connectButton
             // 
@@ -70,6 +71,14 @@ namespace Client
         {
             Task.Factory.StartNew(() => _parrent.Connect(nameBox.Text));
             Close();
+        }
+
+        private void nameBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                connectButton_Click(this, null);
+            }
         }
     }
 }
