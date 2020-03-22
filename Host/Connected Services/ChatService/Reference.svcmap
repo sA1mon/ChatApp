@@ -19,16 +19,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8733/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8733/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="581dc984-4507-48e4-82a5-7df2a4a80bff" SourceId="1" SourceUrl="http://192.168.0.104:8733/?xsd=xsd1" />
-    <MetadataFile FileName="item41.xsd" MetadataType="Schema" ID="b4a77def-e345-40af-ba08-b5ff8eed9e62" SourceId="1" SourceUrl="http://192.168.0.104:8733/?xsd=xsd4" />
-    <MetadataFile FileName="Chat1.wsdl" MetadataType="Wsdl" ID="78073064-91e5-4635-9e8c-1fe7392572ef" SourceId="1" SourceUrl="http://192.168.0.104:8733/?wsdl" />
-    <MetadataFile FileName="item42.xsd" MetadataType="Schema" ID="09753850-6431-4fa7-ae7c-5144d5cd323a" SourceId="1" SourceUrl="http://192.168.0.104:8733/?xsd=xsd2" />
-    <MetadataFile FileName="item43.xsd" MetadataType="Schema" ID="653ab93b-0fe5-475a-aaa0-abc2c0a3e193" SourceId="1" SourceUrl="http://192.168.0.104:8733/?xsd=xsd3" />
-    <MetadataFile FileName="item44.xsd" MetadataType="Schema" ID="d6cbeda5-f061-42a0-9dbe-86094f441056" SourceId="1" SourceUrl="http://192.168.0.104:8733/?xsd=xsd0" />
-    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="a712d415-6dbb-469e-a132-ee333abdc243" SourceId="1" SourceUrl="http://192.168.0.104:8733/?disco" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="bc60aa94-f46b-4256-9180-82fd515d0125" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="038dc18e-df1c-4809-aabc-cd27feafc610" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="d9a0c679-b68a-4df3-8864-794b8e39aa79" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="ChatApp.xsd" MetadataType="Schema" ID="ed565f0d-6e7a-4397-a053-3fa8a00a534b" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="System.Collections.Generic.xsd" MetadataType="Schema" ID="466060ad-6440-44ed-9fa1-13401e0d3d00" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="42f8e578-f6fe-4f9c-bd6b-1186cbed924c" SourceId="1" SourceUrl="http://localhost:8733/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.ServiceModel.Dispatcher;
-using System.Text.RegularExpressions;
-using ChatApp;
+﻿using ChatApp;
 using Host.ChatService;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.ServiceModel;
+using System.Text.RegularExpressions;
 
 namespace Host
 {
@@ -35,11 +34,17 @@ namespace Host
             {
                 var server = new Callback();
 
-                host.AddServiceEndpoint(typeof(ChatApp.IChat), new NetHttpBinding(), "http://192.168.0.104:8731/");
+                host.AddServiceEndpoint(typeof(ChatApp.IChat), new NetHttpBinding
+                {
+                    CloseTimeout = new TimeSpan(1, 0, 0),
+                    OpenTimeout = new TimeSpan(1, 0, 0),
+                    ReceiveTimeout = new TimeSpan(1, 0, 0),
+                    SendTimeout = new TimeSpan(1, 0, 0)
+                }, "http://192.168.0.104:8731/");
                 //host.AddServiceEndpoint(typeof(ChatApp.IChat), new NetTcpBinding {PortSharingEnabled = true},
                 //    "net.tcp://192.168.0.104:8731/");
                 host.Open();
-                
+
                 WriteLineWithTime("Host was started");
                 WriteLineWithTime("Admin logged in");
                 var client = new ChatClient(new InstanceContext(server));
@@ -56,33 +61,33 @@ namespace Host
                         switch (command)
                         {
                             case "!exit":
-                            {
-                                var args = regex.Replace(msg, "${arg}");
-                                client.Remove(user);
-                                WriteLineWithTime("Wait... saving results");
-                                client.Shutdown(args != "--force");
+                                {
+                                    var args = regex.Replace(msg, "${arg}");
+                                    client.Remove(user);
+                                    WriteLineWithTime("Wait... saving results");
+                                    client.Shutdown(args != "--force");
 
-                                return;
-                            }
+                                    return;
+                                }
                             case "!ban":
-                            {
-                                var suspect = regex.Replace(msg, "${arg}");
-                                try
                                 {
-                                    client.Remove(new User(suspect));
-                                    WriteLineWithTime("User banned successfully");
+                                    var suspect = regex.Replace(msg, "${arg}");
+                                    try
+                                    {
+                                        client.Remove(new User(suspect));
+                                        WriteLineWithTime("User banned successfully");
+                                    }
+                                    catch (FaultException)
+                                    {
+                                        WriteLineWithTime("User not found");
+                                    }
+                                    break;
                                 }
-                                catch (FaultException)
-                                {
-                                    WriteLineWithTime("User not found");
-                                }
-                                break;
-                            }
                             default:
-                            {
-                                WriteLineWithTime("Wrong command");
-                                break;
-                            }
+                                {
+                                    WriteLineWithTime("Wrong command");
+                                    break;
+                                }
                         }
                     }
                     else

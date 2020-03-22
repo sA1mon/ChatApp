@@ -55,20 +55,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\ChatService\Chat1.wsdl" />
-    <None Include="Connected Services\ChatService\item4.xsd">
+    <None Include="Connected Services\ChatService\Arrays.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item41.xsd">
+    <None Include="Connected Services\ChatService\ChatApp.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item42.xsd">
+    <None Include="Connected Services\ChatService\service.wsdl" />
+    <None Include="Connected Services\ChatService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item43.xsd">
+    <None Include="Connected Services\ChatService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item44.xsd">
+    <None Include="Connected Services\ChatService\System.Collections.Generic.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\ChatApp.User.datasource" />
@@ -96,9 +96,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ChatService\item1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
