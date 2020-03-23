@@ -118,9 +118,9 @@
   </wsdl:binding>
   <wsdl:service name="Chat">
     <wsdl:port name="NetHttpBinding_IChat" binding="tns:NetHttpBinding_IChat">
-      <soap12:address location="ws://192.168.0.104:8731/" />
+      <soap12:address location="ws://192.168.43.87:8731/" />
       <wsa10:EndpointReference>
-        <wsa10:Address>ws://192.168.0.104:8731/</wsa10:Address>
+        <wsa10:Address>ws://192.168.43.87:8731/</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Client.ChatService;
@@ -117,61 +118,49 @@ namespace Client
 
         private void connectButton_Click(object sender, System.EventArgs e)
         {
-            do
+            try
             {
-                try
-                {
-                    ipTB.Text = ipTB.Text.TrimEnd(' ');
-                    portTB.Text = portTB.Text.TrimEnd(' ');
-                    var ipChecker =
-                        new Regex(
-                            @"((?<=\s)|^)((\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])(\s|$)");
-                    if (!ipChecker.IsMatch(ipTB.Text))
-                        throw new ArgumentException();
+                ipTB.Text = ipTB.Text.TrimEnd(' ');
+                portTB.Text = portTB.Text.TrimEnd(' ');
+                var ipChecker =
+                    new Regex(
+                        @"((?<=\s)|^)((\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])(\s|$)");
+                if (!ipChecker.IsMatch(ipTB.Text))
+                    throw new ArgumentException();
 
-                    if (!int.TryParse(portTB.Name, out var port) && (port < 0 || port > 65535))
-                        throw new ArgumentException();
+                if (!int.TryParse(portTB.Name, out var port) && (port < 0 || port > 65535))
+                    throw new ArgumentException();
 
-                    _parrent.ChatClient = new ChatClient(new InstanceContext(this),
-                        new NetHttpBinding
-                        {
-                            CloseTimeout = new TimeSpan(1, 0, 0),
-                            OpenTimeout = new TimeSpan(1, 0, 0),
-                            ReceiveTimeout = new TimeSpan(1, 0, 0),
-                            SendTimeout = new TimeSpan(1, 0, 0)
-                        },
-                        new EndpointAddress($"http://{ipTB.Text}:{portTB.Text}"));
-
-                    _parrent.Me = _parrent.ChatClient.Add(nameBox.Text);
-
-                    break;
-                }
-                catch (ArgumentException)
-                {
-                    MessageBox.Show("Wrong IP or port format");
-                }
-                catch (FaultException faultException)
-                {
-                    if (faultException.Reason.ToString() == "User name is busy.")
-                    {
-                        MessageBox.Show("Имя занято!");
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                catch (System.ServiceModel.EndpointNotFoundException)
-                {
-                    MessageBox.Show("Wrong IP or port. Unable to connect.");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Something wrong");
-                    Close();
-                }
+                Task.Factory.StartNew(() => _parrent.Connect(nameBox.Text, ipTB.Text, portTB.Text));
             }
-            while (true);
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Wrong IP or port format");
+                return;
+            }
+            catch (FaultException faultException)
+            {
+                if (faultException.Reason.ToString() == "User name is busy.")
+                {
+                    MessageBox.Show("Имя занято!");
+                }
+                else
+                {
+                    throw;
+                }
+                return;
+            }
+            catch (System.ServiceModel.EndpointNotFoundException)
+            {
+                MessageBox.Show("Wrong IP or port. Unable to connect.");
+                return;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something wrong");
+                Close();
+                return;
+            }
 
             Close();
         }

@@ -53,9 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Chat.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Chat.cs" />
     <Compile Include="Chat.Designer.cs">
       <DependentUpon>Chat.cs</DependentUpon>
     </Compile>
@@ -79,20 +77,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Connected Services\ChatService\Chat1.wsdl" />
-    <None Include="Connected Services\ChatService\item4.xsd">
+    <None Include="Connected Services\ChatService\Arrays.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item41.xsd">
+    <None Include="Connected Services\ChatService\ChatApp.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item42.xsd">
+    <None Include="Connected Services\ChatService\service.wsdl" />
+    <None Include="Connected Services\ChatService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item43.xsd">
+    <None Include="Connected Services\ChatService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\item44.xsd">
+    <None Include="Connected Services\ChatService\System.Collections.Generic.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\ChatApp.User.datasource" />
@@ -132,9 +130,6 @@
       <Project>{423F63E0-B823-4AD5-B9F3-552C258F10B2}</Project>
       <Name>ChatApp</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ChatService\item1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

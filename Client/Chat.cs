@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ServiceModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatApp;
@@ -7,27 +9,11 @@ using Client.ChatService;
 
 namespace Client
 {
-    public partial class Chat : Form, IChatCallback
+    public class Callback : IChatCallback
     {
-        public User Me { get; set; }
-        public ChatClient ChatClient { get;set; }
-
-        public Chat()
-        {
-            InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
-            ShowLoginForm();
-        }
-
-        private void ShowLoginForm()
-        {
-            var login = new LogIn(this);
-            login.ShowDialog();
-        }
-
         public async void GetMessage(string message)
         {
-            await Task.Factory.StartNew(() => chatBox.Items.Add(message));
+            await Task.Factory.StartNew(() => Program.MainChat.ChatBox.Items.Add(message));
         }
 
         public async void GetHistory(Queue<string> messages)
@@ -36,9 +22,46 @@ namespace Client
             {
                 while (messages.Count > 0)
                 {
-                    chatBox.Items.Add(messages.Dequeue());
+                    Program.MainChat.ChatBox.Items.Add(messages.Dequeue());
                 }
             });
+        }
+    }
+
+    public partial class Chat : Form
+    {
+        private User Me { get; set; }
+        private ChatClient ChatClient { get;set; }
+        public ListBox ChatBox => chatBox;
+
+        public Chat()
+        {
+            InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
+            ShowLoginForm();
+        }
+
+        internal void Connect(string name, string ip, string port)
+        {
+            Thread.Sleep(50);
+            ChatClient = new ChatClient(new InstanceContext(new Callback()),
+                new NetHttpBinding
+                {
+                    CloseTimeout = new TimeSpan(1, 0, 0),
+                    OpenTimeout = new TimeSpan(1, 0, 0),
+                    ReceiveTimeout = new TimeSpan(1, 0, 0),
+                    SendTimeout = new TimeSpan(1, 0, 0)
+                },
+                new EndpointAddress($"http://{ip}:{port}/"));
+
+            Me = ChatClient.Add(name);
+            Text += $": {name}";
+        }
+
+        private void ShowLoginForm()
+        {
+            var login = new LogIn(this);
+            login.ShowDialog();
         }
 
         private async void Send(object sender, EventArgs e)
