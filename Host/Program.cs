@@ -2,7 +2,6 @@
 using Host.ChatService;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
 

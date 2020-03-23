@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ServiceModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatApp;
@@ -11,41 +9,20 @@ namespace Client
 {
     public partial class Chat : Form, IChatCallback
     {
-        private ChatClient _client;
-        private User _me;
-
-        private event EventHandler UserConnected;
-        private event EventHandler UserDisconnected;
+        public User Me { get; set; }
+        public ChatClient ChatClient { get;set; }
 
         public Chat()
         {
             InitializeComponent();
-            var login = new LogIn(this);
-            login.ShowDialog();
+            CheckForIllegalCrossThreadCalls = false;
+            ShowLoginForm();
         }
 
-        public void Connect(string name)
+        private void ShowLoginForm()
         {
-            try
-            {
-                Thread.Sleep(100);
-                _client = new ChatClient(new InstanceContext(this));
-                _me = _client.Add(name);
-                Text += $": {name}";
-
-            }
-            catch (FaultException e)
-            {
-                if (e.Reason.ToString() == "User name is busy.")
-                {
-                    MessageBox.Show("Имя занято!");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            //UserConnected?.Invoke(this, EventArgs.Empty);
+            var login = new LogIn(this);
+            login.ShowDialog();
         }
 
         public async void GetMessage(string message)
@@ -53,17 +30,20 @@ namespace Client
             await Task.Factory.StartNew(() => chatBox.Items.Add(message));
         }
 
-        public void GetHistory(Queue<string> messages)
+        public async void GetHistory(Queue<string> messages)
         {
-            while (messages.Count > 0)
+            await Task.Factory.StartNew(() =>
             {
-                chatBox.Items.Add(messages.Dequeue());
-            }
+                while (messages.Count > 0)
+                {
+                    chatBox.Items.Add(messages.Dequeue());
+                }
+            });
         }
 
         private async void Send(object sender, EventArgs e)
         {
-            await _client.SendMessageAsync(messageBox.Text, _me);
+            await ChatClient.SendMessageAsync(messageBox.Text, Me);
             messageBox.Text = string.Empty;
         }
 
@@ -71,11 +51,10 @@ namespace Client
         {
             try
             {
-                if (_client != null)
+                if (ChatClient != null)
                 {
-                    _client.Remove(_me);
-                    //UserDisconnected?.Invoke(this, EventArgs.Empty);
-                    _client.Close();
+                    ChatClient.Remove(Me);
+                    ChatClient.Close();
                 }
             }
             catch

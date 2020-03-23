@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceModel;
-using System.ServiceModel.Dispatcher;
 
 namespace ChatApp
 {
