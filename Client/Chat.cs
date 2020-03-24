@@ -4,7 +4,6 @@ using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ChatApp;
 using Client.ChatService;
 
 namespace Client

@@ -55,23 +55,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\ChatService\Arrays.xsd">
+    <None Include="Connected Services\ChatService\Chat.wsdl" />
+    <None Include="Connected Services\ChatService\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\ChatApp.xsd">
+    <None Include="Connected Services\ChatService\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\service.wsdl" />
-    <None Include="Connected Services\ChatService\service.xsd">
+    <None Include="Connected Services\ChatService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\service1.xsd">
+    <None Include="Connected Services\ChatService\item3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\System.Collections.Generic.xsd">
+    <None Include="Connected Services\ChatService\item4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\ChatApp.User.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatApp\ChatApp.csproj">
@@ -80,10 +83,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <WCFMetadataStorage Include="Connected Services\ChatService\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ChatService\" />
+    <None Include="Connected Services\ChatService\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ChatService\configuration91.svcinfo" />

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Client.ChatService;
 
 namespace Client
 {

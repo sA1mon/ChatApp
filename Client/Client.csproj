@@ -83,6 +83,9 @@
     <None Include="Connected Services\ChatService\ChatApp.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ChatService\Client.ChatService.User1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ChatService\service.wsdl" />
     <None Include="Connected Services\ChatService\service.xsd">
       <SubType>Designer</SubType>
@@ -124,12 +127,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ChatApp\ChatApp.csproj">
-      <Project>{423F63E0-B823-4AD5-B9F3-552C258F10B2}</Project>
-      <Name>ChatApp</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
