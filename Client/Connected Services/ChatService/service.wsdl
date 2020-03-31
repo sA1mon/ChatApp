@@ -10,11 +10,11 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import namespace="http://tempuri.org/" />
-      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/ChatApp" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
-      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="" namespace="http://schemas.datacontract.org/2004/07/ChatApp" />
+      <xsd:import schemaLocation="" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+      <xsd:import schemaLocation="" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IChat_Add_InputMessage">
@@ -118,9 +118,9 @@
   </wsdl:binding>
   <wsdl:service name="Chat">
     <wsdl:port name="NetHttpBinding_IChat" binding="tns:NetHttpBinding_IChat">
-      <soap12:address location="ws://192.168.0.104:8731/" />
+      <soap12:address location="ws://25.117.161.49:8733/" />
       <wsa10:EndpointReference>
-        <wsa10:Address>ws://192.168.0.104:8731/</wsa10:Address>
+        <wsa10:Address>ws://25.117.161.49:8733/</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>
