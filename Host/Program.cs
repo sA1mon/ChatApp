@@ -33,26 +33,11 @@ namespace Host
             {
                 var server = new Callback();
 
-                host.AddServiceEndpoint(typeof(ChatApp.IChat), new NetHttpBinding
-                {
-                    CloseTimeout = new TimeSpan(1, 0, 0),
-                    OpenTimeout = new TimeSpan(1, 0, 0),
-                    ReceiveTimeout = new TimeSpan(1, 0, 0),
-                    SendTimeout = new TimeSpan(1, 1, 0, 0)
-                }, "http://192.168.0.104:8731/");
                 host.Open();
 
                 WriteLineWithTime("Host was started");
                 WriteLineWithTime("Admin logged in");
-                var client = new ChatClient(new InstanceContext(server),
-                    new NetHttpBinding
-                    {
-                        CloseTimeout = new TimeSpan(1, 0, 0),
-                        OpenTimeout = new TimeSpan(1, 0, 0),
-                        ReceiveTimeout = new TimeSpan(1, 0, 0),
-                        SendTimeout = new TimeSpan(1, 0, 0)
-                    },
-                    new EndpointAddress($"http://192.168.0.104:8731"));
+                var client = new ChatClient(new InstanceContext(server));
                 var user = client.Add("Admin");
 
                 while (true)

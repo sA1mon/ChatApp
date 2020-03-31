@@ -42,19 +42,27 @@ namespace Client
 
         internal void Connect(string name, string ip, string port)
         {
-            Thread.Sleep(50);
-            ChatClient = new ChatClient(new InstanceContext(new Callback()),
-                new NetHttpBinding
-                {
-                    CloseTimeout = new TimeSpan(1, 0, 0),
-                    OpenTimeout = new TimeSpan(1, 0, 0),
-                    ReceiveTimeout = new TimeSpan(1, 0, 0),
-                    SendTimeout = new TimeSpan(1, 0, 0)
-                },
-                new EndpointAddress($"http://{ip}:{port}/"));
+            try
+            {
+                Thread.Sleep(50);
+                ChatClient = new ChatClient(new InstanceContext(new Callback()),
+                    new NetHttpBinding
+                    {
+                        CloseTimeout = new TimeSpan(1, 0, 0),
+                        OpenTimeout = new TimeSpan(1, 0, 0),
+                        ReceiveTimeout = new TimeSpan(1, 0, 0),
+                        SendTimeout = new TimeSpan(1, 0, 0)
+                    },
+                    new EndpointAddress($"http://{ip}:{port}/"));
 
-            Me = ChatClient.Add(name);
-            Text += $": {name}";
+                Me = ChatClient.Add(name);
+                Text += $": {name}";
+            }
+            catch (EndpointNotFoundException)
+            {
+                MessageBox.Show("Wrong IP or Port", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
         }
 
         private void ShowLoginForm()

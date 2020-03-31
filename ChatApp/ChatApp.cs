@@ -41,7 +41,8 @@ namespace ChatApp
 
 			var id = FreeIDs.First();
 			FreeIDs.Remove(id);
-			if (name != "Admin") SendMessage($"{name} connected.", new User());
+			if (name != "Server")
+                SendMessage($"{name} connected.", new User());
 
 			user = new User(id, name)
 			{
@@ -77,13 +78,14 @@ namespace ChatApp
 
 		public void SendMessage(string msg, User sender)
 		{
-			if (msg == string.Empty) throw new FaultException("Empty message");
-            if (sender == null) return;
+			if (msg == null || sender == null) 
+                throw new FaultException("msg or sender is null");
 
-			if (sender.Id != 0 || sender.Name != "Server")
+            if (sender.Name != "Server")
             {
                 sender = Users.FirstOrDefault(x => x.Name == sender.Name && x.Id == sender.Id);
-                if (sender == null) throw new FaultException("Sender not found");
+                if (sender == null) 
+                    throw new FaultException("Sender not found");
             }
 
 			var message = $"[{DateTime.Now.ToLongTimeString()}] {sender.Name}: {msg}\n";
