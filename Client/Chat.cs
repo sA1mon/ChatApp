@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Management;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +14,12 @@ namespace Client
     {
         public async void GetMessage(string message)
         {
-            await Task.Factory.StartNew(() => Program.MainChat.ChatBox.Items.Add(message));
+            await Task.Factory.StartNew(() =>
+            {
+                Program.MainChat.ChatBox.Items.Add(message);
+                Program.MainChat.ChatBox.SelectedIndex =  Program.MainChat.ChatBox.Items.Count - 1;
+                Program.MainChat.ChatBox.SelectedIndex = -1;
+            });
         }
 
         public async void GetHistory(Queue<string> messages)
@@ -55,7 +62,10 @@ namespace Client
                     },
                     new EndpointAddress($"http://{ip}:{port}/"));
 
-                Me = ChatClient.Add(name);
+                Me = ChatClient.Add(name, GetDriveSerial());
+                if (Me == null)
+                    throw new NullReferenceException();
+
                 Text += $": {name}";
             }
             catch (EndpointNotFoundException)
@@ -63,6 +73,23 @@ namespace Client
                 MessageBox.Show("Wrong IP or Port", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("You've been banned from this server", "Oops", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                Close();
+            }
+        }
+
+        private static string GetDriveSerial()
+        {
+            var objectSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+            foreach (var info in objectSearcher.Get())
+            {
+                return info["SerialNumber"].ToString();
+            }
+
+            throw new DriveNotFoundException();
         }
 
         private void ShowLoginForm()

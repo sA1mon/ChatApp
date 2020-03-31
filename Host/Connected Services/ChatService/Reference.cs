@@ -16,10 +16,10 @@ namespace Host.ChatService {
     public interface IChat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        ChatApp.User Add(string name);
+        ChatApp.User Add(string name, string serial);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name);
+        System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name, string serial);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
         void Remove(ChatApp.User user);
@@ -38,6 +38,18 @@ namespace Host.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
         System.Threading.Tasks.Task ShutdownAsync(bool saveHistory);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Ban", ReplyAction="http://tempuri.org/IChat/BanResponse")]
+        bool Ban(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Ban", ReplyAction="http://tempuri.org/IChat/BanResponse")]
+        System.Threading.Tasks.Task<bool> BanAsync(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Unban", ReplyAction="http://tempuri.org/IChat/UnbanResponse")]
+        bool Unban(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Unban", ReplyAction="http://tempuri.org/IChat/UnbanResponse")]
+        System.Threading.Tasks.Task<bool> UnbanAsync(string name);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -78,12 +90,12 @@ namespace Host.ChatService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public ChatApp.User Add(string name) {
-            return base.Channel.Add(name);
+        public ChatApp.User Add(string name, string serial) {
+            return base.Channel.Add(name, serial);
         }
         
-        public System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name) {
-            return base.Channel.AddAsync(name);
+        public System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name, string serial) {
+            return base.Channel.AddAsync(name, serial);
         }
         
         public void Remove(ChatApp.User user) {
@@ -108,6 +120,22 @@ namespace Host.ChatService {
         
         public System.Threading.Tasks.Task ShutdownAsync(bool saveHistory) {
             return base.Channel.ShutdownAsync(saveHistory);
+        }
+        
+        public bool Ban(string name) {
+            return base.Channel.Ban(name);
+        }
+        
+        public System.Threading.Tasks.Task<bool> BanAsync(string name) {
+            return base.Channel.BanAsync(name);
+        }
+        
+        public bool Unban(string name) {
+            return base.Channel.Unban(name);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UnbanAsync(string name) {
+            return base.Channel.UnbanAsync(name);
         }
     }
 }

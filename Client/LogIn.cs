@@ -52,6 +52,7 @@ namespace Client
             this.ipTB.Name = "ipTB";
             this.ipTB.Size = new System.Drawing.Size(245, 22);
             this.ipTB.TabIndex = 3;
+            this.ipTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameBox_KeyDown);
             // 
             // portTB
             // 
@@ -59,6 +60,7 @@ namespace Client
             this.portTB.Name = "portTB";
             this.portTB.Size = new System.Drawing.Size(62, 22);
             this.portTB.TabIndex = 4;
+            this.portTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameBox_KeyDown);
             // 
             // ipLabel
             // 
@@ -126,37 +128,25 @@ namespace Client
                 if (!ipChecker.IsMatch(ipTB.Text))
                     throw new ArgumentException();
 
-                if (!int.TryParse(portTB.Name, out var port) && (port < 0 || port > 65535))
+                if (!int.TryParse(portTB.Text, out var port) && (port <= 0 || port > 65535))
                     throw new ArgumentException();
 
                 Task.Factory.StartNew(() => _parrent.Connect(nameBox.Text, ipTB.Text, portTB.Text));
             }
             catch (ArgumentException)
             {
-                MessageBox.Show("Wrong IP or port format");
+                MessageBox.Show("Wrong IP or port format.");
                 return;
             }
-            catch (FaultException faultException)
-            {
-                if (faultException.Reason.ToString() == "User name is busy.")
-                {
-                    MessageBox.Show("Имя занято!");
-                }
-                else
-                {
-                    throw;
-                }
-                return;
-            }
-            catch (System.ServiceModel.EndpointNotFoundException)
+            catch (EndpointNotFoundException)
             {
                 MessageBox.Show("Wrong IP or port. Unable to connect.");
                 return;
             }
             catch (Exception)
             {
-                MessageBox.Show("Something wrong");
-                Close();
+                MessageBox.Show("Something wrong.");
+                _parrent.Close();
                 return;
             }
 

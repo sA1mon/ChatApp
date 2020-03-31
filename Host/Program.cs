@@ -32,13 +32,12 @@ namespace Host
             using (var host = new ServiceHost(typeof(Chat)))
             {
                 var server = new Callback();
-
                 host.Open();
 
                 WriteLineWithTime("Host was started");
                 WriteLineWithTime("Admin logged in");
                 var client = new ChatClient(new InstanceContext(server));
-                var user = client.Add("Admin");
+                var user = client.Add("Server", "");
 
                 while (true)
                 {
@@ -62,15 +61,17 @@ namespace Host
                             case "!ban":
                                 {
                                     var suspect = regex.Replace(msg, "${arg}");
-                                    try
+                                    if (client.Ban(suspect))
                                     {
-                                        client.Remove(new User(suspect));
-                                        WriteLineWithTime("User banned successfully");
+                                        client.SendMessage($"{suspect} was banned.", new User());
                                     }
-                                    catch (FaultException)
-                                    {
-                                        WriteLineWithTime("User not found");
-                                    }
+                                    break;
+                                }
+                            case "!unban":
+                                {
+                                    var suspect = regex.Replace(msg, "${arg}");
+                                    if (client.Unban(suspect))
+                                        WriteLineWithTime($"{suspect} unbanned.");
                                     break;
                                 }
                             default:

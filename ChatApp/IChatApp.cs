@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 
@@ -8,7 +9,7 @@ namespace ChatApp
     public interface IChat
     {
         [OperationContract]
-        User Add(string name);
+        User Add(string name, string serial);
 
         [OperationContract]
         void Remove(User user);
@@ -18,6 +19,12 @@ namespace ChatApp
 
         [OperationContract]
         void Shutdown(bool saveHistory);
+
+        [OperationContract]
+        bool Ban(string name);
+
+        [OperationContract]
+        bool Unban(string name);
     }
 
     [ServiceContract]
@@ -30,31 +37,34 @@ namespace ChatApp
         void GetHistory(Queue<string> messages);
     }
 
+    [Serializable]
     [DataContract]
     public class User
     {
         [DataMember]
-        public int Id { get; set; }
-        [DataMember]
         public string Name { get; set; }
 
+        [DataMember]
+        public string Serial { get; set; }
+
+        [NonSerialized]
         internal OperationContext OperationContext;
+
+        public void GetMessage(string message)
+        {
+            OperationContext.GetCallbackChannel<IMessageCallback>().GetMessage(message);
+        }
 
         public User()
         {
-            Id = 0;
             Name = "Server";
+            Serial = "";
         }
 
-        public User(string name) : this()
+        public User(string name, string serial)
         {
             Name = name;
-        }
-
-        public User(int id, string name)
-        {
-            Id = id;
-            Name = name;
+            Serial = serial;
         }
     }
 }

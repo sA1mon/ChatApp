@@ -38,6 +38,18 @@
   <wsdl:message name="IChat_Shutdown_OutputMessage">
     <wsdl:part name="parameters" element="tns:ShutdownResponse" />
   </wsdl:message>
+  <wsdl:message name="IChat_Ban_InputMessage">
+    <wsdl:part name="parameters" element="tns:Ban" />
+  </wsdl:message>
+  <wsdl:message name="IChat_Ban_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BanResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_Unban_InputMessage">
+    <wsdl:part name="parameters" element="tns:Unban" />
+  </wsdl:message>
+  <wsdl:message name="IChat_Unban_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnbanResponse" />
+  </wsdl:message>
   <wsdl:message name="IChat_GetMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:GetMessage" />
   </wsdl:message>
@@ -59,6 +71,14 @@
     <wsdl:operation name="Shutdown">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/Shutdown" message="tns:IChat_Shutdown_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/ShutdownResponse" message="tns:IChat_Shutdown_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Ban">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/Ban" message="tns:IChat_Ban_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/BanResponse" message="tns:IChat_Ban_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Unban">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/Unban" message="tns:IChat_Unban_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/UnbanResponse" message="tns:IChat_Unban_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetMessage" message="tns:IChat_GetMessage_OutputCallbackMessage" />
@@ -96,6 +116,24 @@
     </wsdl:operation>
     <wsdl:operation name="Shutdown">
       <soap12:operation soapAction="http://tempuri.org/IChat/Shutdown" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ban">
+      <soap12:operation soapAction="http://tempuri.org/IChat/Ban" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Unban">
+      <soap12:operation soapAction="http://tempuri.org/IChat/Unban" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

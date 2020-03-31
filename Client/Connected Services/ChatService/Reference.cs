@@ -23,10 +23,10 @@ namespace Client.ChatService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
+        private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
+        private string SerialField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -39,19 +39,6 @@ namespace Client.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Name {
             get {
                 return this.NameField;
@@ -60,6 +47,19 @@ namespace Client.ChatService {
                 if ((object.ReferenceEquals(this.NameField, value) != true)) {
                     this.NameField = value;
                     this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Serial {
+            get {
+                return this.SerialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SerialField, value) != true)) {
+                    this.SerialField = value;
+                    this.RaisePropertyChanged("Serial");
                 }
             }
         }
@@ -79,10 +79,10 @@ namespace Client.ChatService {
     public interface IChat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        Client.ChatService.User Add(string name);
+        Client.ChatService.User Add(string name, string serial);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name);
+        System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name, string serial);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
         void Remove(Client.ChatService.User user);
@@ -101,6 +101,18 @@ namespace Client.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
         System.Threading.Tasks.Task ShutdownAsync(bool saveHistory);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Ban", ReplyAction="http://tempuri.org/IChat/BanResponse")]
+        bool Ban(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Ban", ReplyAction="http://tempuri.org/IChat/BanResponse")]
+        System.Threading.Tasks.Task<bool> BanAsync(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Unban", ReplyAction="http://tempuri.org/IChat/UnbanResponse")]
+        bool Unban(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Unban", ReplyAction="http://tempuri.org/IChat/UnbanResponse")]
+        System.Threading.Tasks.Task<bool> UnbanAsync(string name);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -141,12 +153,12 @@ namespace Client.ChatService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public Client.ChatService.User Add(string name) {
-            return base.Channel.Add(name);
+        public Client.ChatService.User Add(string name, string serial) {
+            return base.Channel.Add(name, serial);
         }
         
-        public System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name) {
-            return base.Channel.AddAsync(name);
+        public System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name, string serial) {
+            return base.Channel.AddAsync(name, serial);
         }
         
         public void Remove(Client.ChatService.User user) {
@@ -171,6 +183,22 @@ namespace Client.ChatService {
         
         public System.Threading.Tasks.Task ShutdownAsync(bool saveHistory) {
             return base.Channel.ShutdownAsync(saveHistory);
+        }
+        
+        public bool Ban(string name) {
+            return base.Channel.Ban(name);
+        }
+        
+        public System.Threading.Tasks.Task<bool> BanAsync(string name) {
+            return base.Channel.BanAsync(name);
+        }
+        
+        public bool Unban(string name) {
+            return base.Channel.Unban(name);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UnbanAsync(string name) {
+            return base.Channel.UnbanAsync(name);
         }
     }
 }

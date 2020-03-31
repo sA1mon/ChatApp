@@ -41,6 +41,7 @@
             this.chatBox.Name = "chatBox";
             this.chatBox.Size = new System.Drawing.Size(682, 500);
             this.chatBox.TabIndex = 0;
+            this.chatBox.HorizontalScrollbar = true;
             // 
             // messageBox
             // 
