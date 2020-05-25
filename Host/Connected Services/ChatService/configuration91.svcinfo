@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="7NHxfyMCf9L4q3HOvY2OTgEE6Es=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="KgwZRyrKNSFYOq+0/jMn32SINLaTJfh7OpdgHAt5GPQ=">
   <bindingConfigurations>
-    <bindingConfiguration bindingType="netHttpBinding" name="NetHttpBinding_IChat">
+    <bindingConfiguration bindingType="netHttpBinding" name="NetHttpBinding_IChat1">
       <properties>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetHttpBinding_IChat</serializedValue>
+          <serializedValue>NetHttpBinding_IChat1</serializedValue>
         </property>
         <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -145,7 +145,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetHttpBinding_IChat" contract="ChatService.IChat" bindingType="netHttpBinding" address="ws://25.117.161.49:8733/" bindingConfiguration="NetHttpBinding_IChat">
+    <endpoint name="NetHttpBinding_IChat" contract="ChatService.IChat" bindingType="netHttpBinding" address="ws://25.117.161.49:8733/" bindingConfiguration="NetHttpBinding_IChat1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>ws://25.117.161.49:8733/</serializedValue>
@@ -157,7 +157,7 @@
           <serializedValue>netHttpBinding</serializedValue>
         </property>
         <property path="/bindingConfiguration" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetHttpBinding_IChat</serializedValue>
+          <serializedValue>NetHttpBinding_IChat1</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>ChatService.IChat</serializedValue>

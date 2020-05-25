@@ -18,8 +18,9 @@ namespace ChatApp
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class Chat : IChat
 	{
-		private delegate void MessageSender(string msg);
-		private event MessageSender SendToAll;
+        private const int MaxMessageCount = 100;
+        private delegate void MessageSendHandler(string msg);
+		private event MessageSendHandler SendToAll;
         private readonly ChatData _data;
 
         public Chat()
@@ -58,7 +59,7 @@ namespace ChatApp
             SendToAll += user.GetMessage;
 			user.OperationContext.GetCallbackChannel<IMessageCallback>().GetHistory(_data.Messages);
 
-			return user;
+            return user;
 		}
 
         public void Remove(User user)
@@ -69,11 +70,11 @@ namespace ChatApp
 			SendToAll -= user.GetMessage;
             if (_data.Users.Remove(user))
 			    SendMessage($"{user.Name} disconnected.", new User());
-		}
+        }
 
 		private void AddMessageInQueue(string message)
 		{
-			if (_data.Messages.Count == 100)
+			if (_data.Messages.Count == MaxMessageCount)
 			{
 				_data.Messages.Dequeue();
 			}
@@ -113,7 +114,8 @@ namespace ChatApp
                 return false;
 
             _data.BannedUsers.Add(user);
-			Remove(user);
+            Remove(user);
+            user.OperationContext.Channel.Abort();
             return true;
         }
 

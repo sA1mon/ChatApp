@@ -108,11 +108,10 @@ namespace Client
         {
             try
             {
-                if (ChatClient != null)
-                {
-                    ChatClient.Remove(Me);
-                    ChatClient.Close();
-                }
+                if (ChatClient == null) return;
+
+                ChatClient.Remove(Me);
+                ChatClient.Close();
             }
             catch
             {

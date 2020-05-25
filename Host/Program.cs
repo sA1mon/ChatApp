@@ -37,6 +37,7 @@ namespace Host
                 WriteLineWithTime("Host was started");
                 WriteLineWithTime("Admin logged in");
                 var client = new ChatClient(new InstanceContext(server));
+                var temp = host.SingletonInstance;
                 var user = client.Add("Server", "");
 
                 while (true)
