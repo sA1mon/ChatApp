@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rsa;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -9,16 +10,19 @@ namespace ChatApp
     public interface IChat
     {
         [OperationContract]
-        User Add(string name, string serial);
+        User Add(string name, string hardSerial, PublicKey key);
 
         [OperationContract]
         void Remove(User user);
 
+        [OperationContract]
+        List<User> GetUsers();
+
         [OperationContract(IsOneWay = true)]
-        void SendMessage(string msg, User sender);
+        void SendMessage(byte[] msg, User sender, User receiver);
 
         [OperationContract]
-        void Shutdown(bool saveHistory);
+        void Shutdown();
 
         [OperationContract]
         bool Ban(string name);
@@ -31,10 +35,7 @@ namespace ChatApp
     public interface IMessageCallback
     {
         [OperationContract(IsOneWay = true)]
-        void GetMessage(string message);
-
-        [OperationContract(IsOneWay = true)]
-        void GetHistory(Queue<string> messages);
+        void GetMessage(byte[] message);
     }
 
     [Serializable]
@@ -47,10 +48,13 @@ namespace ChatApp
         [DataMember]
         public string Serial { get; set; }
 
+        [DataMember]
+        public PublicKey Key { get; set; }
+
         [NonSerialized]
         internal OperationContext OperationContext;
 
-        public void GetMessage(string message)
+        public void GetMessage(byte[] message)
         {
             OperationContext.GetCallbackChannel<IMessageCallback>().GetMessage(message);
         }
@@ -58,13 +62,15 @@ namespace ChatApp
         public User()
         {
             Name = "Server";
-            Serial = "";
+            Serial = string.Empty;
+            Key = default;
         }
 
-        public User(string name, string serial)
+        public User(string name, string serial, PublicKey key)
         {
             Name = name;
             Serial = serial;
+            Key = key;
         }
     }
 }

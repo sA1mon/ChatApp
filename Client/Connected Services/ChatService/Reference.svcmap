@@ -25,9 +25,10 @@
     <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="cd9da7d7-4455-45ff-836b-7a3e1f3fe592" SourceId="1" SourceUrl="http://localhost:8733/mex" />
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="c348c9d7-b898-4aa4-afa6-a2910ce0c3fe" SourceId="1" SourceUrl="http://localhost:8733/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="aae56fdf-f8b3-4932-b6d1-d6782f68f45a" SourceId="1" SourceUrl="http://localhost:8733/mex" />
-    <MetadataFile FileName="ChatApp.xsd" MetadataType="Schema" ID="5972d3e8-a95c-41a1-a539-e08d819148a3" SourceId="1" SourceUrl="http://localhost:8733/mex" />
-    <MetadataFile FileName="System.Collections.Generic.xsd" MetadataType="Schema" ID="242e326b-2960-4522-a131-fce262544609" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="Rsa.xsd" MetadataType="Schema" ID="14e6a947-e89a-4596-98c3-376862a4d87b" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="Org.BouncyCastle.Math.xsd" MetadataType="Schema" ID="40b370b6-6925-4fcd-8547-5286834c5e98" SourceId="1" SourceUrl="http://localhost:8733/mex" />
     <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="eb939351-f7cc-4397-a83a-563e975add61" SourceId="1" SourceUrl="http://localhost:8733/mex" />
+    <MetadataFile FileName="ChatApp.xsd" MetadataType="Schema" ID="5972d3e8-a95c-41a1-a539-e08d819148a3" SourceId="1" SourceUrl="http://localhost:8733/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -49,12 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Callback.cs" />
     <Compile Include="Connected Services\ChatService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Chat.cs" />
+    <Compile Include="Chat.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Chat.Designer.cs">
       <DependentUpon>Chat.cs</DependentUpon>
     </Compile>
@@ -87,14 +90,17 @@
     <None Include="Connected Services\ChatService\Client.ChatService.User1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ChatService\Org.BouncyCastle.Math.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ChatService\Rsa.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\ChatService\service.wsdl" />
     <None Include="Connected Services\ChatService\service.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\ChatService\service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ChatService\System.Collections.Generic.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\ChatApp.User.datasource" />

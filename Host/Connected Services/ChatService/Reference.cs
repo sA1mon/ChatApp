@@ -9,17 +9,184 @@
 //------------------------------------------------------------------------------
 
 namespace Host.ChatService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PublicKey", Namespace="http://schemas.datacontract.org/2004/07/Rsa")]
+    [System.SerializableAttribute()]
+    public partial class PublicKey : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Host.ChatService.BigInteger EField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Host.ChatService.BigInteger NField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Host.ChatService.BigInteger E {
+            get {
+                return this.EField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EField, value) != true)) {
+                    this.EField = value;
+                    this.RaisePropertyChanged("E");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Host.ChatService.BigInteger N {
+            get {
+                return this.NField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NField, value) != true)) {
+                    this.NField = value;
+                    this.RaisePropertyChanged("N");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BigInteger", Namespace="http://schemas.datacontract.org/2004/07/Org.BouncyCastle.Math")]
+    [System.SerializableAttribute()]
+    public partial class BigInteger : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int mQuoteField;
+        
+        private int[] magnitudeField;
+        
+        private int nBitLengthField;
+        
+        private int nBitsField;
+        
+        private int signField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int mQuote {
+            get {
+                return this.mQuoteField;
+            }
+            set {
+                if ((this.mQuoteField.Equals(value) != true)) {
+                    this.mQuoteField = value;
+                    this.RaisePropertyChanged("mQuote");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int[] magnitude {
+            get {
+                return this.magnitudeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.magnitudeField, value) != true)) {
+                    this.magnitudeField = value;
+                    this.RaisePropertyChanged("magnitude");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int nBitLength {
+            get {
+                return this.nBitLengthField;
+            }
+            set {
+                if ((this.nBitLengthField.Equals(value) != true)) {
+                    this.nBitLengthField = value;
+                    this.RaisePropertyChanged("nBitLength");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int nBits {
+            get {
+                return this.nBitsField;
+            }
+            set {
+                if ((this.nBitsField.Equals(value) != true)) {
+                    this.nBitsField = value;
+                    this.RaisePropertyChanged("nBits");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int sign {
+            get {
+                return this.signField;
+            }
+            set {
+                if ((this.signField.Equals(value) != true)) {
+                    this.signField = value;
+                    this.RaisePropertyChanged("sign");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.IChat", CallbackContract=typeof(Host.ChatService.IChatCallback))]
     public interface IChat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        ChatApp.User Add(string name, string serial);
+        ChatApp.User Add(string name, string hardSerial, Host.ChatService.PublicKey key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name, string serial);
+        System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name, string hardSerial, Host.ChatService.PublicKey key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
         void Remove(ChatApp.User user);
@@ -27,17 +194,23 @@ namespace Host.ChatService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
         System.Threading.Tasks.Task RemoveAsync(ChatApp.User user);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
-        void SendMessage(string msg, ChatApp.User sender);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUsers", ReplyAction="http://tempuri.org/IChat/GetUsersResponse")]
+        ChatApp.User[] GetUsers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUsers", ReplyAction="http://tempuri.org/IChat/GetUsersResponse")]
+        System.Threading.Tasks.Task<ChatApp.User[]> GetUsersAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
-        System.Threading.Tasks.Task SendMessageAsync(string msg, ChatApp.User sender);
+        void SendMessage(byte[] msg, ChatApp.User sender, ChatApp.User receiver);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
+        System.Threading.Tasks.Task SendMessageAsync(byte[] msg, ChatApp.User sender, ChatApp.User receiver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
-        void Shutdown(bool saveHistory);
+        void Shutdown();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
-        System.Threading.Tasks.Task ShutdownAsync(bool saveHistory);
+        System.Threading.Tasks.Task ShutdownAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Ban", ReplyAction="http://tempuri.org/IChat/BanResponse")]
         bool Ban(string name);
@@ -56,10 +229,7 @@ namespace Host.ChatService {
     public interface IChatCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetMessage")]
-        void GetMessage(string message);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetHistory")]
-        void GetHistory(System.Collections.Generic.Queue<string> messages);
+        void GetMessage(byte[] message);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -90,12 +260,12 @@ namespace Host.ChatService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public ChatApp.User Add(string name, string serial) {
-            return base.Channel.Add(name, serial);
+        public ChatApp.User Add(string name, string hardSerial, Host.ChatService.PublicKey key) {
+            return base.Channel.Add(name, hardSerial, key);
         }
         
-        public System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name, string serial) {
-            return base.Channel.AddAsync(name, serial);
+        public System.Threading.Tasks.Task<ChatApp.User> AddAsync(string name, string hardSerial, Host.ChatService.PublicKey key) {
+            return base.Channel.AddAsync(name, hardSerial, key);
         }
         
         public void Remove(ChatApp.User user) {
@@ -106,20 +276,28 @@ namespace Host.ChatService {
             return base.Channel.RemoveAsync(user);
         }
         
-        public void SendMessage(string msg, ChatApp.User sender) {
-            base.Channel.SendMessage(msg, sender);
+        public ChatApp.User[] GetUsers() {
+            return base.Channel.GetUsers();
         }
         
-        public System.Threading.Tasks.Task SendMessageAsync(string msg, ChatApp.User sender) {
-            return base.Channel.SendMessageAsync(msg, sender);
+        public System.Threading.Tasks.Task<ChatApp.User[]> GetUsersAsync() {
+            return base.Channel.GetUsersAsync();
         }
         
-        public void Shutdown(bool saveHistory) {
-            base.Channel.Shutdown(saveHistory);
+        public void SendMessage(byte[] msg, ChatApp.User sender, ChatApp.User receiver) {
+            base.Channel.SendMessage(msg, sender, receiver);
         }
         
-        public System.Threading.Tasks.Task ShutdownAsync(bool saveHistory) {
-            return base.Channel.ShutdownAsync(saveHistory);
+        public System.Threading.Tasks.Task SendMessageAsync(byte[] msg, ChatApp.User sender, ChatApp.User receiver) {
+            return base.Channel.SendMessageAsync(msg, sender, receiver);
+        }
+        
+        public void Shutdown() {
+            base.Channel.Shutdown();
+        }
+        
+        public System.Threading.Tasks.Task ShutdownAsync() {
+            return base.Channel.ShutdownAsync();
         }
         
         public bool Ban(string name) {

@@ -52,5 +52,11 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rsa\Rsa.csproj">
+      <Project>{490dd538-4511-4db1-b608-f1052289d13b}</Project>
+      <Name>Rsa</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

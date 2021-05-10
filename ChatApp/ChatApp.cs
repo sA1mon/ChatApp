@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rsa;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,103 +8,83 @@ using System.ServiceModel;
 
 namespace ChatApp
 {
-	[Serializable]
+    [Serializable]
     internal class ChatData
     {
         internal HashSet<User> BannedUsers { get; set; } = new HashSet<User>();
-        internal Queue<string> Messages { get; set; } = new Queue<string>(100);
-		internal HashSet<User> Users { get; set; }
+        internal HashSet<User> Users { get; set; }
     }
 
-	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-	public class Chat : IChat
-	{
-        private const int MaxMessageCount = 100;
-        private delegate void MessageSendHandler(string msg);
-		private event MessageSendHandler SendToAll;
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class Chat : IChat
+    {
         private readonly ChatData _data;
 
         public Chat()
-		{
+        {
             try
-			{
-				var bf = new BinaryFormatter();
+            {
+                var bf = new BinaryFormatter();
                 using (var fs = new FileStream("data.bin", FileMode.Open))
                 {
                     _data = (ChatData)bf.Deserialize(fs);
                 }
             }
-			catch
+            catch
             {
                 _data = new ChatData();
             }
 
-			_data.Users = new HashSet<User>();
-		}
+            _data.Users = new HashSet<User>();
+        }
 
-        public User Add(string name, string serial)
+        public User Add(string name, string hardSerial, PublicKey key)
         {
-            if (_data.BannedUsers.FirstOrDefault(x => x.Serial == serial) != null || 
+            if (_data.BannedUsers.FirstOrDefault(x => x.Serial == hardSerial) != null ||
                 _data.Users.FirstOrDefault(x => x.Name == name) != null)
                 return null;
 
-            var user = new User(name, serial)
+            var user = new User(name, hardSerial, key)
             {
                 OperationContext = OperationContext.Current
             };
             _data.Users.Add(user);
 
-            if (name != "Server")
-                SendMessage($"{name} connected.", new User());
-
-            SendToAll += user.GetMessage;
-			user.OperationContext.GetCallbackChannel<IMessageCallback>().GetHistory(_data.Messages);
-
             return user;
-		}
+        }
 
         public void Remove(User user)
         {
             user = _data.Users.FirstOrDefault(x => x.Name == user.Name);
-            if (user == null) return;
+            if (user == null)
+                return;
 
-			SendToAll -= user.GetMessage;
-            if (_data.Users.Remove(user))
-			    SendMessage($"{user.Name} disconnected.", new User());
+            _data.Users.Remove(user);
         }
 
-		private void AddMessageInQueue(string message)
-		{
-			if (_data.Messages.Count == MaxMessageCount)
-			{
-				_data.Messages.Dequeue();
-			}
+        public List<User> GetUsers()
+        {
+            return _data.Users.ToList();
+        }
 
-			_data.Messages.Enqueue(message);
-		}
+        public void SendMessage(byte[] msg, User sender, User receiver)
+        {
+            if (msg == null ||
+                msg.Length == 0 ||
+                sender == null ||
+                _data.Users.FirstOrDefault(x => x.Name == sender.Name) == null)
+                return;
 
-		public void SendMessage(string msg, User sender)
-		{
-			if (msg == null || sender == null || _data.Users.FirstOrDefault(x => x.Name == sender.Name) == null)
-				return;
+            receiver.GetMessage(msg);
+        }
 
-			var message = $"[{DateTime.Now.ToLongTimeString()}] {sender.Name}: {msg}\n";
-			AddMessageInQueue(message);
-			SendToAll?.Invoke(message);
-		}
-
-		public void Shutdown(bool saveHistory)
-		{
-			if (!saveHistory)
-			{
-				_data.Messages.Clear();
-			}
-
-			using (var fs = new FileStream("data.bin", FileMode.OpenOrCreate))
-			{
-				var bf = new BinaryFormatter();
-				bf.Serialize(fs, _data);
-			}
+        public void Shutdown()
+        {
+            using (var fs = new FileStream("data.bin", FileMode.OpenOrCreate))
+            {
+                var bf = new BinaryFormatter();
+                bf.Serialize(fs, _data);
+            }
         }
 
         public bool Ban(string name)

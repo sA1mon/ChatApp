@@ -1,43 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Client.ChatService;
+using System;
 using System.IO;
 using System.Management;
 using System.ServiceModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Client.ChatService;
 
 namespace Client
 {
-    public class Callback : IChatCallback
-    {
-        public async void GetMessage(string message)
-        {
-            await Task.Factory.StartNew(() =>
-            {
-                Program.MainChat.ChatBox.Items.Add(message);
-                Program.MainChat.ChatBox.SelectedIndex =  Program.MainChat.ChatBox.Items.Count - 1;
-                Program.MainChat.ChatBox.SelectedIndex = -1;
-            });
-        }
-
-        public async void GetHistory(Queue<string> messages)
-        {
-            await Task.Factory.StartNew(() =>
-            {
-                while (messages.Count > 0)
-                {
-                    Program.MainChat.ChatBox.Items.Add(messages.Dequeue());
-                }
-            });
-        }
-    }
-
     public partial class Chat : Form
     {
         private User Me { get; set; }
-        private ChatClient ChatClient { get;set; }
+        private ChatClient ChatClient { get; set; }
         public ListBox ChatBox => chatBox;
 
         public Chat()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="KgwZRyrKNSFYOq+0/jMn32SINLaTJfh7OpdgHAt5GPQ=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="BDS5Am5G7MeXa1ArLRMVdA3fTdV3jtb8SKZkcSc4AuQ=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netHttpBinding" name="NetHttpBinding_IChat1">
       <properties>
@@ -145,10 +145,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetHttpBinding_IChat" contract="ChatService.IChat" bindingType="netHttpBinding" address="ws://25.117.161.49:8733/" bindingConfiguration="NetHttpBinding_IChat1">
+    <endpoint name="NetHttpBinding_IChat" contract="ChatService.IChat" bindingType="netHttpBinding" address="ws://localhost:8733/" bindingConfiguration="NetHttpBinding_IChat1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ws://25.117.161.49:8733/</serializedValue>
+          <serializedValue>ws://localhost:8733/</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -10,11 +10,12 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="" namespace="http://schemas.datacontract.org/2004/07/ChatApp" />
-      <xsd:import schemaLocation="" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
-      <xsd:import schemaLocation="" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Rsa" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Org.BouncyCastle.Math" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/ChatApp" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IChat_Add_InputMessage">
@@ -28,6 +29,12 @@
   </wsdl:message>
   <wsdl:message name="IChat_Remove_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsers" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersResponse" />
   </wsdl:message>
   <wsdl:message name="IChat_SendMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessage" />
@@ -53,9 +60,6 @@
   <wsdl:message name="IChat_GetMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:GetMessage" />
   </wsdl:message>
-  <wsdl:message name="IChat_GetHistory_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:GetHistory" />
-  </wsdl:message>
   <wsdl:portType name="IChat">
     <wsdl:operation name="Add">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/Add" message="tns:IChat_Add_InputMessage" />
@@ -64,6 +68,10 @@
     <wsdl:operation name="Remove">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/Remove" message="tns:IChat_Remove_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/RemoveResponse" message="tns:IChat_Remove_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetUsers" message="tns:IChat_GetUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetUsersResponse" message="tns:IChat_GetUsers_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SendMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/SendMessage" message="tns:IChat_SendMessage_InputMessage" />
@@ -83,9 +91,6 @@
     <wsdl:operation name="GetMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetMessage" message="tns:IChat_GetMessage_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetHistory">
-      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetHistory" message="tns:IChat_GetHistory_OutputCallbackMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetHttpBinding_IChat" type="tns:IChat">
     <wsp:PolicyReference URI="#NetHttpBinding_IChat_policy" />
@@ -101,6 +106,15 @@
     </wsdl:operation>
     <wsdl:operation name="Remove">
       <soap12:operation soapAction="http://tempuri.org/IChat/Remove" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsers">
+      <soap12:operation soapAction="http://tempuri.org/IChat/GetUsers" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -147,18 +161,12 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetHistory">
-      <soap12:operation soapAction="http://tempuri.org/IChat/GetHistory" style="document" />
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Chat">
     <wsdl:port name="NetHttpBinding_IChat" binding="tns:NetHttpBinding_IChat">
-      <soap12:address location="ws://25.117.161.49:8733/" />
+      <soap12:address location="ws://localhost:8733/" />
       <wsa10:EndpointReference>
-        <wsa10:Address>ws://25.117.161.49:8733/</wsa10:Address>
+        <wsa10:Address>ws://localhost:8733/</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>
