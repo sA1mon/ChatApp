@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPFClent.ChatService {
+namespace WPFClient.ChatService {
     using System.Runtime.Serialization;
     using System;
     
@@ -23,10 +23,10 @@ namespace WPFClent.ChatService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private WPFClent.ChatService.BigInteger EField;
+        private WPFClient.ChatService.BigInteger EField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private WPFClent.ChatService.BigInteger NField;
+        private WPFClient.ChatService.BigInteger NField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -39,7 +39,7 @@ namespace WPFClent.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WPFClent.ChatService.BigInteger E {
+        public WPFClient.ChatService.BigInteger E {
             get {
                 return this.EField;
             }
@@ -52,7 +52,7 @@ namespace WPFClent.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WPFClent.ChatService.BigInteger N {
+        public WPFClient.ChatService.BigInteger N {
             get {
                 return this.NField;
             }
@@ -188,7 +188,7 @@ namespace WPFClent.ChatService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private WPFClent.ChatService.PublicKey KeyField;
+        private WPFClient.ChatService.PublicKey KeyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
@@ -207,7 +207,7 @@ namespace WPFClent.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WPFClent.ChatService.PublicKey Key {
+        public WPFClient.ChatService.PublicKey Key {
             get {
                 return this.KeyField;
             }
@@ -256,32 +256,32 @@ namespace WPFClent.ChatService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.IChat", CallbackContract=typeof(WPFClent.ChatService.IChatCallback))]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.IChat", CallbackContract=typeof(WPFClient.ChatService.IChatCallback))]
     public interface IChat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        WPFClent.ChatService.User Add(string name, string hardSerial, WPFClent.ChatService.PublicKey key);
+        WPFClient.ChatService.User Add(string name, string hardSerial, WPFClient.ChatService.PublicKey key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        System.Threading.Tasks.Task<WPFClent.ChatService.User> AddAsync(string name, string hardSerial, WPFClent.ChatService.PublicKey key);
+        System.Threading.Tasks.Task<WPFClient.ChatService.User> AddAsync(string name, string hardSerial, WPFClient.ChatService.PublicKey key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
-        void Remove(WPFClent.ChatService.User user);
+        void Remove(WPFClient.ChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
-        System.Threading.Tasks.Task RemoveAsync(WPFClent.ChatService.User user);
+        System.Threading.Tasks.Task RemoveAsync(WPFClient.ChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUsers", ReplyAction="http://tempuri.org/IChat/GetUsersResponse")]
-        WPFClent.ChatService.User[] GetUsers();
+        WPFClient.ChatService.User[] GetUsers();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUsers", ReplyAction="http://tempuri.org/IChat/GetUsersResponse")]
-        System.Threading.Tasks.Task<WPFClent.ChatService.User[]> GetUsersAsync();
+        System.Threading.Tasks.Task<WPFClient.ChatService.User[]> GetUsersAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
-        void SendMessage(byte[] msg, WPFClent.ChatService.User sender, WPFClent.ChatService.User receiver);
+        void SendMessage(byte[] msg, WPFClient.ChatService.User sender, WPFClient.ChatService.User receiver);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/SendMessage")]
-        System.Threading.Tasks.Task SendMessageAsync(byte[] msg, WPFClent.ChatService.User sender, WPFClent.ChatService.User receiver);
+        System.Threading.Tasks.Task SendMessageAsync(byte[] msg, WPFClient.ChatService.User sender, WPFClient.ChatService.User receiver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Shutdown", ReplyAction="http://tempuri.org/IChat/ShutdownResponse")]
         void Shutdown();
@@ -310,12 +310,12 @@ namespace WPFClent.ChatService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IChatChannel : WPFClent.ChatService.IChat, System.ServiceModel.IClientChannel {
+    public interface IChatChannel : WPFClient.ChatService.IChat, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ChatClient : System.ServiceModel.DuplexClientBase<WPFClent.ChatService.IChat>, WPFClent.ChatService.IChat {
+    public partial class ChatClient : System.ServiceModel.DuplexClientBase<WPFClient.ChatService.IChat>, WPFClient.ChatService.IChat {
         
         public ChatClient(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance) {
@@ -337,35 +337,35 @@ namespace WPFClent.ChatService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public WPFClent.ChatService.User Add(string name, string hardSerial, WPFClent.ChatService.PublicKey key) {
+        public WPFClient.ChatService.User Add(string name, string hardSerial, WPFClient.ChatService.PublicKey key) {
             return base.Channel.Add(name, hardSerial, key);
         }
         
-        public System.Threading.Tasks.Task<WPFClent.ChatService.User> AddAsync(string name, string hardSerial, WPFClent.ChatService.PublicKey key) {
+        public System.Threading.Tasks.Task<WPFClient.ChatService.User> AddAsync(string name, string hardSerial, WPFClient.ChatService.PublicKey key) {
             return base.Channel.AddAsync(name, hardSerial, key);
         }
         
-        public void Remove(WPFClent.ChatService.User user) {
+        public void Remove(WPFClient.ChatService.User user) {
             base.Channel.Remove(user);
         }
         
-        public System.Threading.Tasks.Task RemoveAsync(WPFClent.ChatService.User user) {
+        public System.Threading.Tasks.Task RemoveAsync(WPFClient.ChatService.User user) {
             return base.Channel.RemoveAsync(user);
         }
         
-        public WPFClent.ChatService.User[] GetUsers() {
+        public WPFClient.ChatService.User[] GetUsers() {
             return base.Channel.GetUsers();
         }
         
-        public System.Threading.Tasks.Task<WPFClent.ChatService.User[]> GetUsersAsync() {
+        public System.Threading.Tasks.Task<WPFClient.ChatService.User[]> GetUsersAsync() {
             return base.Channel.GetUsersAsync();
         }
         
-        public void SendMessage(byte[] msg, WPFClent.ChatService.User sender, WPFClent.ChatService.User receiver) {
+        public void SendMessage(byte[] msg, WPFClient.ChatService.User sender, WPFClient.ChatService.User receiver) {
             base.Channel.SendMessage(msg, sender, receiver);
         }
         
-        public System.Threading.Tasks.Task SendMessageAsync(byte[] msg, WPFClent.ChatService.User sender, WPFClent.ChatService.User receiver) {
+        public System.Threading.Tasks.Task SendMessageAsync(byte[] msg, WPFClient.ChatService.User sender, WPFClient.ChatService.User receiver) {
             return base.Channel.SendMessageAsync(msg, sender, receiver);
         }
         

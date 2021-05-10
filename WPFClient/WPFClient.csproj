@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{97C32D0C-A680-4EE7-B9DB-3EBABC7CD6FF}</ProjectGuid>
+    <ProjectGuid>{585B7334-F48D-4619-B03C-1EBC18895BF9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WPFClent</RootNamespace>
-    <AssemblyName>WPFClent</AssemblyName>
+    <RootNamespace>WPFClient</RootNamespace>
+    <AssemblyName>WPFClient</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -65,6 +65,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Callback.cs" />
     <Compile Include="Connected Services\ChatService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,7 +113,7 @@
     <None Include="Connected Services\ChatService\item5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ChatService\WPFClent.ChatService.User.datasource">
+    <None Include="Connected Services\ChatService\WPFClient.ChatService.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
