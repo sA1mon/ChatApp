@@ -9,7 +9,7 @@ namespace Client
         public async void GetMessage(byte[] message, string senderName)
         {
             var data = Program.MainChat.Rsa.Decrypt(message);
-            var textData = $"{senderName}: {Encoding.Default.GetString(data)}";
+            var textData = $"{senderName}: {Encoding.UTF32.GetString(data)}";
 
             await Task.Factory.StartNew(() =>
             {

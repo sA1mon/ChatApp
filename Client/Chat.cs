@@ -23,6 +23,7 @@ namespace Client
             CheckForIllegalCrossThreadCalls = false;
             _rsa = new Rsa.Rsa();
             ShowLoginForm();
+            
         }
 
         internal void Connect(string name, string ip, string port)
@@ -73,18 +74,29 @@ namespace Client
         private void ShowLoginForm()
         {
             var login = new LogIn(this);
-            login.ShowDialog();
+            login.Show(this);
         }
 
         private async void Send(object sender, EventArgs e)
         {
-            var data = Encoding.Default.GetBytes(messageBox.Text);
+            var data = Encoding.UTF32.GetBytes(messageBox.Text);
             messageBox.Text = string.Empty;
 
-            foreach (var user in await ChatClient.GetUsersAsync())
+            try
             {
-                var encrypted = _rsa.Crypt(data, user.Key);
-                await ChatClient.SendMessageAsync(encrypted, Me, user);
+                foreach (var user in await ChatClient.GetUsersAsync())
+                {
+                    var encrypted = _rsa.Crypt(data, user.Key);
+                    await ChatClient.SendMessageAsync(encrypted, Me, user);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Произшла ошибка! Проверьте соединение с Интернетом", 
+                    "Ошибка", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error);
+                Close();
             }
         }
 
@@ -109,6 +121,11 @@ namespace Client
             {
                 Send(this, null);
             }
+        }
+
+        private void Chat_Shown(object sender, EventArgs e)
+        {
+            Hide();
         }
     }
 }

@@ -36,26 +36,28 @@
             // chatBox
             // 
             this.chatBox.FormattingEnabled = true;
-            this.chatBox.ItemHeight = 16;
-            this.chatBox.Location = new System.Drawing.Point(12, 12);
-            this.chatBox.Name = "chatBox";
-            this.chatBox.Size = new System.Drawing.Size(682, 500);
-            this.chatBox.TabIndex = 0;
             this.chatBox.HorizontalScrollbar = true;
+            this.chatBox.Location = new System.Drawing.Point(9, 10);
+            this.chatBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chatBox.Name = "chatBox";
+            this.chatBox.Size = new System.Drawing.Size(512, 407);
+            this.chatBox.TabIndex = 0;
             // 
             // messageBox
             // 
-            this.messageBox.Location = new System.Drawing.Point(12, 537);
+            this.messageBox.Location = new System.Drawing.Point(9, 436);
+            this.messageBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(574, 22);
+            this.messageBox.Size = new System.Drawing.Size(432, 20);
             this.messageBox.TabIndex = 1;
             this.messageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageBox_KeyDown);
             // 
             // sendB
             // 
-            this.sendB.Location = new System.Drawing.Point(605, 536);
+            this.sendB.Location = new System.Drawing.Point(454, 436);
+            this.sendB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.sendB.Name = "sendB";
-            this.sendB.Size = new System.Drawing.Size(89, 23);
+            this.sendB.Size = new System.Drawing.Size(67, 19);
             this.sendB.TabIndex = 2;
             this.sendB.Text = "Send";
             this.sendB.UseVisualStyleBackColor = true;
@@ -63,19 +65,21 @@
             // 
             // Chat
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(706, 588);
+            this.ClientSize = new System.Drawing.Size(530, 478);
             this.Controls.Add(this.sendB);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.chatBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.Name = "Chat";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chat";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Chat_FormClosing);
+            this.Shown += new System.EventHandler(this.Chat_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

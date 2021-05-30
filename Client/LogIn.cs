@@ -23,7 +23,7 @@ namespace Client
             // 
             this.nameBox.Location = new System.Drawing.Point(21, 106);
             this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(245, 22);
+            this.nameBox.Size = new System.Drawing.Size(245, 20);
             this.nameBox.TabIndex = 0;
             this.nameBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameBox_KeyDown);
             // 
@@ -42,7 +42,7 @@ namespace Client
             this.nameLabel.AutoSize = true;
             this.nameLabel.Location = new System.Drawing.Point(21, 83);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(45, 17);
+            this.nameLabel.Size = new System.Drawing.Size(35, 13);
             this.nameLabel.TabIndex = 2;
             this.nameLabel.Text = "Name";
             // 
@@ -50,7 +50,7 @@ namespace Client
             // 
             this.ipTB.Location = new System.Drawing.Point(21, 40);
             this.ipTB.Name = "ipTB";
-            this.ipTB.Size = new System.Drawing.Size(245, 22);
+            this.ipTB.Size = new System.Drawing.Size(245, 20);
             this.ipTB.TabIndex = 3;
             this.ipTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameBox_KeyDown);
             // 
@@ -58,7 +58,7 @@ namespace Client
             // 
             this.portTB.Location = new System.Drawing.Point(295, 40);
             this.portTB.Name = "portTB";
-            this.portTB.Size = new System.Drawing.Size(62, 22);
+            this.portTB.Size = new System.Drawing.Size(62, 20);
             this.portTB.TabIndex = 4;
             this.portTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameBox_KeyDown);
             // 
@@ -67,7 +67,7 @@ namespace Client
             this.ipLabel.AutoSize = true;
             this.ipLabel.Location = new System.Drawing.Point(21, 17);
             this.ipLabel.Name = "ipLabel";
-            this.ipLabel.Size = new System.Drawing.Size(20, 17);
+            this.ipLabel.Size = new System.Drawing.Size(17, 13);
             this.ipLabel.TabIndex = 5;
             this.ipLabel.Text = "IP";
             // 
@@ -76,7 +76,7 @@ namespace Client
             this.portLabel.AutoSize = true;
             this.portLabel.Location = new System.Drawing.Point(292, 17);
             this.portLabel.Name = "portLabel";
-            this.portLabel.Size = new System.Drawing.Size(34, 17);
+            this.portLabel.Size = new System.Drawing.Size(26, 13);
             this.portLabel.TabIndex = 5;
             this.portLabel.Text = "Port";
             // 
@@ -95,6 +95,7 @@ namespace Client
             this.MinimizeBox = false;
             this.Name = "LogIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LogIn_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,6 +151,8 @@ namespace Client
                 return;
             }
 
+            _parrent.Show();
+
             Close();
         }
 
@@ -159,6 +162,11 @@ namespace Client
             {
                 connectButton_Click(this, null);
             }
+        }
+
+        private void LogIn_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _parrent.Close();
         }
     }
 }

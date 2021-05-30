@@ -46,9 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PrimeManager.cs" />
     <Compile Include="PublicKey.cs" />
-    <Compile Include="RandomGenerator.cs" />
     <Compile Include="Rsa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
