@@ -15,171 +15,6 @@ namespace Client.ChatService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PublicKey", Namespace="http://schemas.datacontract.org/2004/07/Rsa")]
-    [System.SerializableAttribute()]
-    public partial class PublicKey : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client.ChatService.BigInteger EField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client.ChatService.BigInteger NField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client.ChatService.BigInteger E {
-            get {
-                return this.EField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EField, value) != true)) {
-                    this.EField = value;
-                    this.RaisePropertyChanged("E");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client.ChatService.BigInteger N {
-            get {
-                return this.NField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NField, value) != true)) {
-                    this.NField = value;
-                    this.RaisePropertyChanged("N");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BigInteger", Namespace="http://schemas.datacontract.org/2004/07/Org.BouncyCastle.Math")]
-    [System.SerializableAttribute()]
-    public partial class BigInteger : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private int mQuoteField;
-        
-        private int[] magnitudeField;
-        
-        private int nBitLengthField;
-        
-        private int nBitsField;
-        
-        private int signField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int mQuote {
-            get {
-                return this.mQuoteField;
-            }
-            set {
-                if ((this.mQuoteField.Equals(value) != true)) {
-                    this.mQuoteField = value;
-                    this.RaisePropertyChanged("mQuote");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int[] magnitude {
-            get {
-                return this.magnitudeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.magnitudeField, value) != true)) {
-                    this.magnitudeField = value;
-                    this.RaisePropertyChanged("magnitude");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int nBitLength {
-            get {
-                return this.nBitLengthField;
-            }
-            set {
-                if ((this.nBitLengthField.Equals(value) != true)) {
-                    this.nBitLengthField = value;
-                    this.RaisePropertyChanged("nBitLength");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int nBits {
-            get {
-                return this.nBitsField;
-            }
-            set {
-                if ((this.nBitsField.Equals(value) != true)) {
-                    this.nBitsField = value;
-                    this.RaisePropertyChanged("nBits");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int sign {
-            get {
-                return this.signField;
-            }
-            set {
-                if ((this.signField.Equals(value) != true)) {
-                    this.signField = value;
-                    this.RaisePropertyChanged("sign");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/ChatApp")]
     [System.SerializableAttribute()]
     public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -188,7 +23,7 @@ namespace Client.ChatService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client.ChatService.PublicKey KeyField;
+        private Rsa.PublicKey KeyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
@@ -207,7 +42,7 @@ namespace Client.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client.ChatService.PublicKey Key {
+        public Rsa.PublicKey Key {
             get {
                 return this.KeyField;
             }
@@ -260,10 +95,10 @@ namespace Client.ChatService {
     public interface IChat {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        Client.ChatService.User Add(string name, string hardSerial, Client.ChatService.PublicKey key);
+        Client.ChatService.User Add(string name, string hardSerial, Rsa.PublicKey key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Add", ReplyAction="http://tempuri.org/IChat/AddResponse")]
-        System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name, string hardSerial, Client.ChatService.PublicKey key);
+        System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name, string hardSerial, Rsa.PublicKey key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/Remove", ReplyAction="http://tempuri.org/IChat/RemoveResponse")]
         void Remove(Client.ChatService.User user);
@@ -337,11 +172,11 @@ namespace Client.ChatService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public Client.ChatService.User Add(string name, string hardSerial, Client.ChatService.PublicKey key) {
+        public Client.ChatService.User Add(string name, string hardSerial, Rsa.PublicKey key) {
             return base.Channel.Add(name, hardSerial, key);
         }
         
-        public System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name, string hardSerial, Client.ChatService.PublicKey key) {
+        public System.Threading.Tasks.Task<Client.ChatService.User> AddAsync(string name, string hardSerial, Rsa.PublicKey key) {
             return base.Channel.AddAsync(name, hardSerial, key);
         }
         

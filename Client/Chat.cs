@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Management;
 using System.ServiceModel;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -11,13 +12,16 @@ namespace Client
     public partial class Chat : Form
     {
         private User Me { get; set; }
+        private Rsa.Rsa _rsa;
         private ChatClient ChatClient { get; set; }
         public ListBox ChatBox => chatBox;
+        public Rsa.Rsa Rsa => _rsa;
 
         public Chat()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            _rsa = new Rsa.Rsa();
             ShowLoginForm();
         }
 
@@ -25,7 +29,7 @@ namespace Client
         {
             try
             {
-                Thread.Sleep(50);
+                Thread.Sleep(150);
                 ChatClient = new ChatClient(new InstanceContext(new Callback()),
                     new NetHttpBinding
                     {
@@ -36,7 +40,7 @@ namespace Client
                     },
                     new EndpointAddress($"http://{ip}:{port}/"));
 
-                Me = ChatClient.Add(name, GetDriveSerial());
+                Me = ChatClient.Add(name, GetDriveSerial(), _rsa.Key);
                 if (Me == null)
                     throw new NullReferenceException();
 
@@ -74,8 +78,14 @@ namespace Client
 
         private async void Send(object sender, EventArgs e)
         {
-            await ChatClient.SendMessageAsync(messageBox.Text, Me);
+            var data = Encoding.Default.GetBytes(messageBox.Text);
             messageBox.Text = string.Empty;
+
+            foreach (var user in await ChatClient.GetUsersAsync())
+            {
+                var encrypted = _rsa.Crypt(data, user.Key);
+                await ChatClient.SendMessageAsync(encrypted, Me, user);
+            }
         }
 
         private void Chat_FormClosing(object sender, FormClosingEventArgs e)

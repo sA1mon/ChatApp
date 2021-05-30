@@ -22,11 +22,9 @@ namespace Host.ChatService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Host.ChatService.BigInteger EField;
+        private Host.ChatService.BigInteger Ek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Host.ChatService.BigInteger NField;
+        private Host.ChatService.BigInteger Nk__BackingFieldField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -38,28 +36,28 @@ namespace Host.ChatService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Host.ChatService.BigInteger E {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<E>k__BackingField", IsRequired=true)]
+        public Host.ChatService.BigInteger Ek__BackingField {
             get {
-                return this.EField;
+                return this.Ek__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.EField, value) != true)) {
-                    this.EField = value;
-                    this.RaisePropertyChanged("E");
+                if ((object.ReferenceEquals(this.Ek__BackingFieldField, value) != true)) {
+                    this.Ek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Ek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Host.ChatService.BigInteger N {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<N>k__BackingField", IsRequired=true)]
+        public Host.ChatService.BigInteger Nk__BackingField {
             get {
-                return this.NField;
+                return this.Nk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.NField, value) != true)) {
-                    this.NField = value;
-                    this.RaisePropertyChanged("N");
+                if ((object.ReferenceEquals(this.Nk__BackingFieldField, value) != true)) {
+                    this.Nk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Nk__BackingField");
                 }
             }
         }

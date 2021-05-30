@@ -131,7 +131,7 @@ namespace Client
                 if (!int.TryParse(portTB.Text, out var port) && (port <= 0 || port > 65535))
                     throw new ArgumentException();
 
-                Task.Factory.StartNew(() => _parrent.Connect(nameBox.Text, ipTB.Text, portTB.Text));
+                _parrent.Connect(nameBox.Text, ipTB.Text, portTB.Text);
             }
             catch (ArgumentException)
             {

@@ -70,12 +70,10 @@ namespace ChatApp
         public void SendMessage(byte[] msg, User sender, User receiver)
         {
             if (msg == null ||
-                msg.Length == 0 ||
-                sender == null ||
-                _data.Users.FirstOrDefault(x => x.Name == sender.Name) == null)
+                msg.Length == 0)
                 return;
 
-            receiver.GetMessage(msg);
+            _data.Users.FirstOrDefault(x => x.Name == receiver.Name).GetMessage(msg);
         }
 
         public void Shutdown()
