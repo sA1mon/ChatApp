@@ -141,7 +141,7 @@ namespace Client.ChatService {
     public interface IChatCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChat/GetMessage")]
-        void GetMessage(byte[] message);
+        void GetMessage(byte[] message, string senderName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

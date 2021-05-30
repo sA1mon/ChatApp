@@ -73,7 +73,7 @@ namespace ChatApp
                 msg.Length == 0)
                 return;
 
-            _data.Users.FirstOrDefault(x => x.Name == receiver.Name).GetMessage(msg);
+            _data.Users.FirstOrDefault(x => x.Name == receiver.Name).GetMessage(msg, sender.Name);
         }
 
         public void Shutdown()

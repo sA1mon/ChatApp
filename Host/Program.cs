@@ -8,9 +8,9 @@ namespace Host
 {
     internal class Callback : IChatCallback
     {
-        public void GetMessage(byte[] message)
+        public void GetMessage(byte[] message, string senderName)
         {
-            Console.WriteLine(Encoding.Default.GetString(message));
+            Console.WriteLine($"{senderName}: {Encoding.Default.GetString(message)}");
         }
     }
 

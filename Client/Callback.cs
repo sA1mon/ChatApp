@@ -6,10 +6,10 @@ namespace Client
 {
     public class Callback : IChatCallback
     {
-        public async void GetMessage(byte[] message)
+        public async void GetMessage(byte[] message, string senderName)
         {
             var data = Program.MainChat.Rsa.Decrypt(message);
-            var textData = Encoding.Default.GetString(data);
+            var textData = $"{senderName}: {Encoding.Default.GetString(data)}";
 
             await Task.Factory.StartNew(() =>
             {

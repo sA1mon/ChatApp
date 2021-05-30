@@ -35,7 +35,7 @@ namespace ChatApp
     public interface IMessageCallback
     {
         [OperationContract(IsOneWay = true)]
-        void GetMessage(byte[] message);
+        void GetMessage(byte[] message, string senderName);
     }
 
     [Serializable]
@@ -54,9 +54,9 @@ namespace ChatApp
         [NonSerialized]
         internal OperationContext OperationContext;
 
-        public void GetMessage(byte[] message)
+        public void GetMessage(byte[] message, string senderName)
         {
-            OperationContext.GetCallbackChannel<IMessageCallback>().GetMessage(message);
+            OperationContext.GetCallbackChannel<IMessageCallback>().GetMessage(message, senderName);
         }
 
         public User()
