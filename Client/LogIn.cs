@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Client
@@ -153,7 +152,7 @@ namespace Client
 
             _parrent.Show();
 
-            Close();
+            Hide();
         }
 
         private void nameBox_KeyDown(object sender, KeyEventArgs e)

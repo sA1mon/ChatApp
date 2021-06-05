@@ -23,7 +23,6 @@ namespace Client
             CheckForIllegalCrossThreadCalls = false;
             _rsa = new Rsa.Rsa();
             ShowLoginForm();
-            
         }
 
         internal void Connect(string name, string ip, string port)
